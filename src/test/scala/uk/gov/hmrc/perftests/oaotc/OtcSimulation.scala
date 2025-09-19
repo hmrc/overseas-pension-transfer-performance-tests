@@ -29,7 +29,7 @@ class OtcSimulation extends PerformanceTestRunner {
     getHome,
     getDashBoardPage,
     getMemberName,
-    postMemberName("FirstName","LastName")
+   // postMemberName("FirstName","LastName")
   )
 
 

@@ -35,10 +35,10 @@ object MemberJourneyRequests extends BaseRequests {
       .get(MemberDetailsUrl+"member-name")
       .check(status.is(303))
 
-  def postMemberName(memberFirstName: String, memberLastName: String) =
+  def postMemberName(memberFirstName: String, memberLastName: String): HttpRequestBuilder =
     http("POST - Member Name page")
     .post(MemberDetailsUrl+"member-name")
-    .formParam("csrfToken", "#{csrfToken}")
+    .formParam("csrfToken", "$${csrfToken}")
     .formParam("memberFirstName", memberFirstName)
     .formParam("memberLastName", memberLastName)
     .check(status.is(303))

@@ -38,7 +38,7 @@ object HomePageRequests extends BaseRequests {
   val getDashBoardPage: HttpRequestBuilder =
     http("Get Dashboard Page")
       .get(otcDashBoardUrl)
-      .check(status.is(303))
+      .check(status.is(200))
 
   val getWhatWillBeNeededPage: HttpRequestBuilder =
     http("Get Dashboard Page")
