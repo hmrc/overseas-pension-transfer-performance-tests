@@ -16,11 +16,9 @@
 
 package uk.gov.hmrc.perftests.oaotc
 
-import io.gatling.core.Predef._
 import io.gatling.core.check.CheckBuilder
 import io.gatling.core.check.regex.RegexCheckType
-import io.gatling.http.Predef._
-import io.gatling.http.check.header.HttpHeaderRegexCheckType
+import io.gatling.core.Predef._
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 import scala.concurrent.duration.DurationInt
@@ -37,9 +35,12 @@ trait BaseRequests extends ServicesConfiguration {
 
   val otcWhatWillBeNeededUrl: String = otcRedirectUrl + "/what-will-be-needed"
 
+  val otcTaskListUrl: String = otcRedirectUrl + "/task-list"
+
   val authWizardUrl: String = baseUrlFor("auth-login-stub") + "/auth-login-stub/gg-sign-in"
 
-  val CsrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)""""
+
+
 
   def sessionPause(int: Int) = pause(int second)
 }

@@ -18,18 +18,60 @@ package uk.gov.hmrc.perftests.oaotc
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.oaotc.AuthRequests.{getAuthWizard, otcDashBoardUrl, otcRedirectUrl, postLoginAsPspUser}
-import uk.gov.hmrc.perftests.oaotc.HomePageRequests.{getDashBoardPage, getHome}
-import uk.gov.hmrc.perftests.oaotc.MemberJourneyRequests.{getMemberName, postMemberName}
+import uk.gov.hmrc.perftests.oaotc.HomePageRequests.{getDashBoardPage, getHome, getTaskListPage, getWhatWillBeNeededPage}
+import uk.gov.hmrc.perftests.oaotc.MemberJourneyRequests.{getMemberCheckYourAnswers, getMemberCurrentAddress, getMemberDOB, getMemberHasEverBeenResidentUk, getMemberIsResidentUk, getMemberName, getMemberNino, postMemberCurrentAddress, postMemberDOB, postMemberHasEverBeenResidentUk, postMemberIsResidentUk, postMemberName, postMemberNino}
 
 class OtcSimulation extends PerformanceTestRunner {
 
-  setup("PSAFlow", "Login and navigating to Dashboard").withRequests(
+  setup("MemberJourneyIsUkResident", "Member is UK resident").withRequests(
     getAuthWizard,
     postLoginAsPspUser( psaid= "A2100005",redirectUrl = otcRedirectUrl),
     getHome,
-    getDashBoardPage,
+   // getDashBoardPage,
+    getWhatWillBeNeededPage,
+    getTaskListPage,
     getMemberName,
-   // postMemberName("FirstName","LastName")
+    postMemberName("FirstName","LastName"),
+    getMemberNino,
+    postMemberNino,
+    getMemberDOB,
+    postMemberDOB,
+    getMemberCurrentAddress,
+    postMemberCurrentAddress,
+    getMemberIsResidentUk,
+    getMemberCheckYourAnswers
+
+  )
+  setup("MemberJourneyIsNotUkResident", "Member is not a UK resident").withRequests(
+    getAuthWizard,
+    postLoginAsPspUser( psaid= "A2100005",redirectUrl = otcRedirectUrl),
+    getHome,
+   // getDashBoardPage,
+    getWhatWillBeNeededPage,
+    getTaskListPage,
+    getMemberName,
+    postMemberName("FirstName","LastName"),
+    getMemberNino,
+    postMemberNino,
+    getMemberDOB,
+    postMemberDOB,
+    getMemberCurrentAddress,
+    postMemberCurrentAddress,
+    getMemberIsResidentUk,
+    postMemberIsResidentUk(false),
+    getMemberHasEverBeenResidentUk,
+    postMemberHasEverBeenResidentUk(false),
+    getMemberCheckYourAnswers
+  )
+
+    setup("PSAFlow Member journey", "Member Journey").withRequests(
+    getMemberName,
+    postMemberName("FirstName","LastName"),
+    getMemberNino,
+    postMemberNino,
+    getMemberDOB,
+    postMemberDOB
+
   )
 
 
