@@ -41,7 +41,13 @@ object HomePageRequests extends BaseRequests {
       .check(status.is(200))
 
   val getWhatWillBeNeededPage: HttpRequestBuilder =
-    http("Get Dashboard Page")
+    http("Get What will be needed Page")
       .get(otcWhatWillBeNeededUrl)
       .check(status.is(200))
+
+  val getTaskListPage: HttpRequestBuilder =
+    http("Get task list Page")
+      .get(otcTaskListUrl)
+      .check(status.is(200))
+
 }
