@@ -20,6 +20,7 @@ import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.oaotc.AuthRequests.{getAuthWizard, otcDashBoardUrl, otcRedirectUrl, postLoginAsPspUser}
 import uk.gov.hmrc.perftests.oaotc.HomePageRequests.{getDashBoardPage, getHome, getTaskListPage, getWhatWillBeNeededPage}
 import uk.gov.hmrc.perftests.oaotc.MemberJourneyRequests.{getMemberCheckYourAnswers, getMemberCurrentAddress, getMemberDOB, getMemberHasEverBeenResidentUk, getMemberIsResidentUk, getMemberName, getMemberNino, postMemberCurrentAddress, postMemberDOB, postMemberHasEverBeenResidentUk, postMemberIsResidentUk, postMemberName, postMemberNino}
+import uk.gov.hmrc.perftests.oaotc.TransferDetailsJourneyRequests.{getCashInTransfer, getCheckYourAnswers, getOtherAssetsAmendContinue, getOtherAssetsCheckYourAnswers, getOtherAssetsDescription, getOtherAssetsStart, getOtherAssetsValue, getPropertyAddress, getPropertyCheckYourAnswers, getPropertyDescription, getPropertyStart, getPropertyValue, getQuotedSharesCheckYourAnswers, getQuotedSharesClass, getQuotedSharesCompanyName, getQuotedSharesNumber, getQuotedSharesStart, getQuotedSharesValue, getTypeOfAsset, getUnquotedSharesCheckYourAnswers, getUnquotedSharesClass, getUnquotedSharesCompanyName, getUnquotedSharesNumber, getUnquotedSharesValue, postCashInTransfer, postOtherAssetsAmendContinue, postOtherAssetsDescription, postOtherAssetsValue, postPropertyAddress, postPropertyDescription, postPropertyValue, postQuotedSharesClass, postQuotedSharesCompanyName, postQuotedSharesNumber, postQuotedSharesValue, postTypeOfAsset, postTypeOfMultipleAssets, postUnquotedSharesClass, postUnquotedSharesCompanyName, postUnquotedSharesNumber, postUnquotedSharesValue}
 
 class OtcSimulation extends PerformanceTestRunner {
 
@@ -34,11 +35,11 @@ class OtcSimulation extends PerformanceTestRunner {
     postMemberName("FirstName","LastName"),
     getMemberNino,
     postMemberNino,
-    getMemberDOB,
-    postMemberDOB,
-    getMemberCurrentAddress,
-    postMemberCurrentAddress,
-    getMemberIsResidentUk,
+    //getMemberDOB,
+    //postMemberDOB,
+    //getMemberCurrentAddress,
+    //postMemberCurrentAddress,
+   // getMemberIsResidentUk,
     getMemberCheckYourAnswers
 
   )
@@ -53,27 +54,100 @@ class OtcSimulation extends PerformanceTestRunner {
     postMemberName("FirstName","LastName"),
     getMemberNino,
     postMemberNino,
-    getMemberDOB,
-    postMemberDOB,
-    getMemberCurrentAddress,
-    postMemberCurrentAddress,
-    getMemberIsResidentUk,
-    postMemberIsResidentUk(false),
-    getMemberHasEverBeenResidentUk,
-    postMemberHasEverBeenResidentUk(false),
+   // getMemberDOB,
+    // postMemberDOB,
+    //getMemberCurrentAddress,
+   // postMemberCurrentAddress,
+   // getMemberIsResidentUk,
+   // postMemberIsResidentUk(false),
+    //getMemberHasEverBeenResidentUk,
+    //postMemberHasEverBeenResidentUk(false),
     getMemberCheckYourAnswers
   )
 
-    setup("PSAFlow Member journey", "Member Journey").withRequests(
-    getMemberName,
-    postMemberName("FirstName","LastName"),
-    getMemberNino,
-    postMemberNino,
-    getMemberDOB,
-    postMemberDOB
+    setup("TransferDetailsQuotedShareJourney", "Quoted shares type").withRequests(
+      getAuthWizard,
+      postLoginAsPspUser( psaid= "A2100005",redirectUrl = otcRedirectUrl),
+      getHome,
+      getDashBoardPage,
+      getWhatWillBeNeededPage,
+      //getTaskListPage,
+      getTypeOfAsset,
+      postTypeOfAsset("[2]","quotedShares"),
+      getQuotedSharesStart,
+      getQuotedSharesCompanyName,
+      postQuotedSharesCompanyName,
+      getQuotedSharesValue,
+      postQuotedSharesValue,
+      getQuotedSharesNumber,
+      postQuotedSharesNumber,
+      getQuotedSharesClass,
+      postQuotedSharesClass,
+      getQuotedSharesCheckYourAnswers
+  )
+
+  setup("TransferDetailsUnquotedShareJourney", "Unquoted shares type").withRequests(
+    getAuthWizard,
+    postLoginAsPspUser( psaid= "A2100005",redirectUrl = otcRedirectUrl),
+    getHome,
+    getDashBoardPage,
+    getWhatWillBeNeededPage,
+    //getTaskListPage,
+    getTypeOfAsset,
+    postTypeOfAsset("[1]","unquotedShares"),
+    getUnquotedSharesClass,
+    getUnquotedSharesCompanyName,
+    postUnquotedSharesCompanyName,
+    getUnquotedSharesValue,
+    postUnquotedSharesValue,
+    getUnquotedSharesNumber,
+    postUnquotedSharesNumber,
+    getUnquotedSharesClass,
+    postUnquotedSharesClass,
+    getUnquotedSharesCheckYourAnswers
+  )
+
+  setup("TransferDetailsPropertyJourney", "Property type").withRequests(
+    getAuthWizard,
+    postLoginAsPspUser( psaid= "A2100005",redirectUrl = otcRedirectUrl),
+    getHome,
+    getDashBoardPage,
+    getWhatWillBeNeededPage,
+    //getTaskListPage,
+    getTypeOfAsset,
+    postTypeOfAsset("[3]","propertyAssets"),
+    getPropertyStart,
+    getPropertyAddress,
+    postPropertyAddress,
+    getPropertyValue,
+    postPropertyValue,
+    getPropertyDescription,
+    postPropertyDescription,
+    getPropertyCheckYourAnswers
 
   )
 
+  setup("TransferDetailsCashAndOtherAssetsJourney", "Cash and other assets type").withRequests(
+    getAuthWizard,
+    postLoginAsPspUser( psaid= "A2100005",redirectUrl = otcRedirectUrl),
+    getHome,
+    getDashBoardPage,
+    getWhatWillBeNeededPage,
+    //getTaskListPage,
+    getTypeOfAsset,
+    postTypeOfMultipleAssets("[0]","cash","[4]","otherAssets"),
+    getCashInTransfer,
+    postCashInTransfer,
+    getOtherAssetsStart,
+    getOtherAssetsDescription,
+    postOtherAssetsDescription,
+    getOtherAssetsValue,
+    postOtherAssetsValue,
+    getOtherAssetsCheckYourAnswers,
+   // getOtherAssetsAmendContinue,
+   // postOtherAssetsAmendContinue,
+  //  getCheckYourAnswers
 
+  )
   runSimulation()
 }
