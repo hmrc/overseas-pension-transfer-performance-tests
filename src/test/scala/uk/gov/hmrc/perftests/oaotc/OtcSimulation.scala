@@ -20,7 +20,7 @@ import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.oaotc.AuthRequests.{getAuthWizard, otcDashBoardUrl, otcRedirectUrl, postLoginAsPspUser}
 import uk.gov.hmrc.perftests.oaotc.HomePageRequests.{getDashBoardPage, getHome, getTaskListPage, getWhatWillBeNeededPage}
 import uk.gov.hmrc.perftests.oaotc.MemberJourneyRequests.{getMemberCheckYourAnswers, getMemberCurrentAddress, getMemberDOB, getMemberHasEverBeenResidentUk, getMemberIsResidentUk, getMemberName, getMemberNino, postMemberCurrentAddress, postMemberDOB, postMemberHasEverBeenResidentUk, postMemberIsResidentUk, postMemberName, postMemberNino}
-import uk.gov.hmrc.perftests.oaotc.QROPSJourneyRequests.{getQROPSName, postQROPSName}
+import uk.gov.hmrc.perftests.oaotc.QROPSJourneyRequests.{getQROPSAddress, getQROPSCountry, getQROPSName, getQROPSRef, postQROPSAddress, postQROPSCountry, postQROPSName, postQROPSRef}
 import uk.gov.hmrc.perftests.oaotc.TransferDetailsJourneyRequests.{getCashInTransfer, getCheckYourAnswers, getOtherAssetsAmendContinue, getOtherAssetsCheckYourAnswers, getOtherAssetsDescription, getOtherAssetsStart, getOtherAssetsValue, getPropertyAddress, getPropertyCheckYourAnswers, getPropertyDescription, getPropertyStart, getPropertyValue, getQuotedSharesCheckYourAnswers, getQuotedSharesClass, getQuotedSharesCompanyName, getQuotedSharesNumber, getQuotedSharesStart, getQuotedSharesValue, getTypeOfAsset, getUnquotedSharesCheckYourAnswers, getUnquotedSharesClass, getUnquotedSharesCompanyName, getUnquotedSharesNumber, getUnquotedSharesValue, postCashInTransfer, postOtherAssetsAmendContinue, postOtherAssetsDescription, postOtherAssetsValue, postPropertyAddress, postPropertyDescription, postPropertyValue, postQuotedSharesClass, postQuotedSharesCompanyName, postQuotedSharesNumber, postQuotedSharesValue, postTypeOfAsset, postTypeOfMultipleAssets, postUnquotedSharesClass, postUnquotedSharesCompanyName, postUnquotedSharesNumber, postUnquotedSharesValue}
 
 class OtcSimulation extends PerformanceTestRunner {
@@ -160,6 +160,16 @@ class OtcSimulation extends PerformanceTestRunner {
     getTaskListPage,
     getQROPSName,
     postQROPSName("LIC"),
+    getQROPSRef,
+    postQROPSRef("QROPS123456"),
+    getQROPSAddress,
+    postQROPSAddress("Some Building","Some Street", "United Kingdom"),
+      getQROPSCountry,
+    postQROPSCountry("United Kingdom"),
+
+
+
+
 
   )
   runSimulation()

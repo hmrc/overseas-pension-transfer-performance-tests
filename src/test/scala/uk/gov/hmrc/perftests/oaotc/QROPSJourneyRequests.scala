@@ -38,10 +38,57 @@ object  QROPSJourneyRequests extends BaseRequests {
       .check(saveCsrfToken())
 
   def postQROPSName(qropsName: String): HttpRequestBuilder =
-    http("POST - Member Name page")
+    http("POST - QROPS Name page")
       .post(MemberDetailsUrl + "qrops-name")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("qropsName", qropsName)
       .check(status.is(303))
+
+  def getQROPSRef: HttpRequestBuilder =
+    http("GET - QROPS Reference page")
+      .get(MemberDetailsUrl + "qrops-reference")
+      .check(status.is(200))
+      .check(saveCsrfToken())
+
+  def postQROPSRef(qropsRef: String): HttpRequestBuilder =
+    http("POST - QROPS Reference page")
+      .post(MemberDetailsUrl + "qrops-reference")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("qropsRef", qropsRef)
+      .check(status.is(303))
+
+  def getQROPSAddress: HttpRequestBuilder =
+    http("GET - QROPS Address page")
+      .get(MemberDetailsUrl + "qrops-address")
+      .check(status.is(200))
+      .check(saveCsrfToken())
+
+  def postQROPSAddress(qropsAddress1: String, qropsAddress2: String, qropsCountry: String): HttpRequestBuilder =
+    http("POST - QROPS Address page")
+      .post(MemberDetailsUrl + "qrops-address")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("addressLine1", qropsAddress1)
+      .formParam("addressLine2", qropsAddress2)
+      .formParam("countryCode", qropsCountry)
+      .check(status.is(303))
+
+  def getQROPSCountry: HttpRequestBuilder =
+    http("GET - QROPS Country page")
+      .get(MemberDetailsUrl + "qrops-country")
+      .check(status.is(200))
+      .check(saveCsrfToken())
+
+  def postQROPSCountry(qropsCountryLookup: String): HttpRequestBuilder =
+    http("POST - QROPS Country page")
+      .post(MemberDetailsUrl + "qrops-country")
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("countryCode", qropsCountryLookup)
+      .check(status.is(303))
+
+  def getQROPSCYA: HttpRequestBuilder =
+    http("GET - QROPS CYA page")
+      .get(MemberDetailsUrl + "qrops-country")
+      .check(status.is(200))
+      .check(saveCsrfToken())
 
 }
