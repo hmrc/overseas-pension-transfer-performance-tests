@@ -21,6 +21,7 @@ import uk.gov.hmrc.perftests.oaotc.AuthRequests.{getAuthWizard, otcDashBoardUrl,
 import uk.gov.hmrc.perftests.oaotc.HomePageRequests.{getDashBoardPage, getHome, getTaskListPage, getWhatWillBeNeededPage}
 import uk.gov.hmrc.perftests.oaotc.MemberJourneyRequests.{getMemberCheckYourAnswers, getMemberCurrentAddress, getMemberDOB, getMemberHasEverBeenResidentUk, getMemberIsResidentUk, getMemberName, getMemberNino, postMemberCurrentAddress, postMemberDOB, postMemberHasEverBeenResidentUk, postMemberIsResidentUk, postMemberName, postMemberNino}
 import uk.gov.hmrc.perftests.oaotc.QROPSJourneyRequests.{getQROPSAddress, getQROPSCountry, getQROPSName, getQROPSRef, postQROPSAddress, postQROPSCountry, postQROPSName, postQROPSRef}
+import uk.gov.hmrc.perftests.oaotc.SchemaManagerJourneyRequests.{getNameOfOrganisation, getNameOfOrganisationIndividual, getNameOfSchemeManager, getSchemeManagerAddress, getSchemeManagerCheckYourAnswers, getSchemeManagerContact, getSchemeManagerEmail, getTypeOfSchemeManager, postNameOfOrganisation, postNameOfOrganisationIndividual, postNameOfSchemeManager, postSchemeManagerAddress, postSchemeManagerContact, postSchemeManagerEmail, postTypeOfSchemeManager}
 import uk.gov.hmrc.perftests.oaotc.TransferDetailsJourneyRequests.{getCashInTransfer, getCheckYourAnswers, getOtherAssetsAmendContinue, getOtherAssetsCheckYourAnswers, getOtherAssetsDescription, getOtherAssetsStart, getOtherAssetsValue, getPropertyAddress, getPropertyCheckYourAnswers, getPropertyDescription, getPropertyStart, getPropertyValue, getQuotedSharesCheckYourAnswers, getQuotedSharesClass, getQuotedSharesCompanyName, getQuotedSharesNumber, getQuotedSharesStart, getQuotedSharesValue, getTypeOfAsset, getUnquotedSharesCheckYourAnswers, getUnquotedSharesClass, getUnquotedSharesCompanyName, getUnquotedSharesNumber, getUnquotedSharesValue, postCashInTransfer, postOtherAssetsAmendContinue, postOtherAssetsDescription, postOtherAssetsValue, postPropertyAddress, postPropertyDescription, postPropertyValue, postQuotedSharesClass, postQuotedSharesCompanyName, postQuotedSharesNumber, postQuotedSharesValue, postTypeOfAsset, postTypeOfMultipleAssets, postUnquotedSharesClass, postUnquotedSharesCompanyName, postUnquotedSharesNumber, postUnquotedSharesValue}
 
 class OtcSimulation extends PerformanceTestRunner {
@@ -166,11 +167,49 @@ class OtcSimulation extends PerformanceTestRunner {
     postQROPSAddress("Some Building","Some Street", "United Kingdom"),
       getQROPSCountry,
     postQROPSCountry("United Kingdom"),
-
-
-
-
-
   )
+
+  setup("SchemeManagerAsIndividualJourney", "Scheme manager as Individual").withRequests(
+    getAuthWizard,
+    postLoginAsPspUser( psaid= "A2100005",redirectUrl = otcRedirectUrl),
+    getHome,
+    getDashBoardPage,
+    getWhatWillBeNeededPage,
+    //getTaskListPage,
+    getTypeOfSchemeManager,
+    postTypeOfSchemeManager("individual"),
+    getNameOfSchemeManager,
+    postNameOfSchemeManager("First","Name"),
+    getSchemeManagerAddress,
+    postSchemeManagerAddress,
+    getSchemeManagerEmail,
+    postSchemeManagerEmail,
+    getSchemeManagerContact,
+    postSchemeManagerContact,
+    getSchemeManagerCheckYourAnswers
+  )
+
+  setup("SchemeManagerAsOrganisationJourney", "Scheme manager as Organisation").withRequests(
+    getAuthWizard,
+    postLoginAsPspUser( psaid= "A2100005",redirectUrl = otcRedirectUrl),
+    getHome,
+    getDashBoardPage,
+    getWhatWillBeNeededPage,
+    //getTaskListPage,
+    getTypeOfSchemeManager,
+    postTypeOfSchemeManager("organisation"),
+    getNameOfOrganisation,
+    postNameOfOrganisation,
+    getNameOfOrganisationIndividual,
+    postNameOfOrganisationIndividual,
+    getSchemeManagerAddress,
+    postSchemeManagerAddress,
+    getSchemeManagerEmail,
+    postSchemeManagerEmail,
+    getSchemeManagerContact,
+    postSchemeManagerContact,
+    getSchemeManagerCheckYourAnswers
+  )
+
   runSimulation()
 }
