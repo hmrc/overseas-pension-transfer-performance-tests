@@ -27,7 +27,7 @@ object AuthRequests extends BaseRequests {
       .get(authWizardUrl)
       .check(status.is(200))
 
-  def postLoginAsPspUser(psaid: String, redirectUrl: String): HttpRequestBuilder =
+  def postLoginAsPspUser(psaid: String, redirectUrl: String = otcRedirectUrl): HttpRequestBuilder =
     http("POST - Login as a Psa user")
       .post(authWizardUrl)
       .formParam("csrfToken", "$${csrfToken}")

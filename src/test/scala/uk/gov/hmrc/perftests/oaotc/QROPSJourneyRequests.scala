@@ -24,7 +24,6 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 
 object  QROPSJourneyRequests extends BaseRequests {
-  //Possibly remove this val as doesn't look to be used?
   lazy val MemberDetailsUrl: String = otcRedirectUrl + "/qrops-details/"
 
   val CsrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)""""

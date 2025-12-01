@@ -24,7 +24,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 
 object SchemaManagerJourneyRequests extends BaseRequests {
-  //Possibly remove this val as doesn't look to be used?
+
   lazy val SchemeManagerUrl: String = otcRedirectUrl + "/qrops-scheme-manager-details/"
 
   val CsrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)""""

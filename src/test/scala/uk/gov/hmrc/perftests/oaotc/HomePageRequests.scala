@@ -17,13 +17,18 @@
 package uk.gov.hmrc.perftests.oaotc
 
 import io.gatling.core.Predef._
+import io.gatling.core.check.CheckBuilder
+import io.gatling.core.check.regex.RegexCheckType
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
 
 object HomePageRequests extends BaseRequests {
-  //Possibly remove this val as doesn't look to be used?
   lazy val homeUrl: String = otcRedirectUrl + "/start?srn=S2400000001"
+
+  val CsrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)""""
+
+  def saveCsrfToken(): CheckBuilder[RegexCheckType, String] = regex(_ => CsrfPattern).saveAs("csrfToken")
 
   /*def getHomeWithOrigin(redirectUrl: String): HttpRequestBuilder =
     http("GET - Home page with origin")
@@ -40,10 +45,19 @@ object HomePageRequests extends BaseRequests {
       .get(otcDashBoardUrl)
       .check(status.is(200))
 
+
   val getWhatWillBeNeededPage: HttpRequestBuilder =
     http("Get What will be needed Page")
       .get(otcWhatWillBeNeededUrl)
       .check(status.is(200))
+      .check(saveCsrfToken())
+
+
+  val postWhatWillBeNeededPage: HttpRequestBuilder =
+    http("Post What will be needed Page")
+      .post(otcWhatWillBeNeededUrl)
+      .formParam("csrfToken", "#{csrfToken}")
+      .check(status.is(303))
 
   val getTaskListPage: HttpRequestBuilder =
     http("Get task list Page")
