@@ -25,11 +25,11 @@ import scala.concurrent.duration.DurationInt
 
 trait BaseRequests extends ServicesConfiguration {
 
-  val baseUrl: String = baseUrlFor("report-transfer-qualified-recognised-overseas-pension-scheme")
+  val baseUrl: String = baseUrlFor("report-transfer-qualifying-recognised-overseas-pension-scheme")
 
-  val otcRedirectUrl: String = baseUrl + "/report-transfer-qualified-recognised-overseas-pension-scheme"
+  val otcRedirectUrl: String = baseUrl + "/report-transfer-qualifying-recognised-overseas-pension-scheme"
 
-  val otcSrnUrl: String = baseUrl + "/report-transfer-qualified-recognised-overseas-pension-scheme/start?srn=S2400000001"
+  val otcSrnUrl: String = baseUrl + "/report-transfer-qualifying-recognised-overseas-pension-scheme/start?srn=S2400000001"
 
   val otcDashBoardUrl: String = otcRedirectUrl + "/dashboard"
 
