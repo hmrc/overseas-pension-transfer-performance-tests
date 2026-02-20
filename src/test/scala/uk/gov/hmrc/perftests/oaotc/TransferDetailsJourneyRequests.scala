@@ -201,13 +201,16 @@ object TransferDetailsJourneyRequests extends BaseRequests {
       .check(saveCsrfToken())
 
   def postPropertyAddress : HttpRequestBuilder =
-    http("POST - Unquoted shares company name page")
+    http("POST - Property address page")
       .post(TransferDetailsUrl+"assets/property-address?index=0")
       .formParam("csrfToken", "#{csrfToken}")
       .formParam("addressLine1", "line 1")
       .formParam("addressLine2", "line 2")
+      .formParam("addressLine3", "")
+      .formParam("addressLine4", "")
+      .formParam("addressLine5", "")
       .formParam("countryCode", "GB")
-      .formParam("postcode", "ukpost")
+      .formParam("postcode", "SW1A 1AA")
       .check(status.is(303))
 
   def getPropertyValue: HttpRequestBuilder =
