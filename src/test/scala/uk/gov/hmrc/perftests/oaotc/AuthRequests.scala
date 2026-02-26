@@ -17,6 +17,8 @@
 package uk.gov.hmrc.perftests.oaotc
 
 import io.gatling.core.Predef._
+import io.gatling.core.session.el.ElCompiler
+import io.gatling.core.session.StaticValueExpression
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
@@ -30,23 +32,23 @@ object AuthRequests extends BaseRequests {
   def postLoginAsPspUser(psaid: String, redirectUrl: String = otcRedirectUrl): HttpRequestBuilder =
     http("POST - Login as a Psa user")
       .post(authWizardUrl)
-      .formParam("csrfToken", "$${csrfToken}")
-      .formParam("redirectionUrl", redirectUrl)
-      .formParam("credentialStrength", "strong")
-      .formParam("authorityId", "")
-      .formParam("confidenceLevel", "50")
-      .formParam("affinityGroup", "Individual")
-      .formParam("gatewayToken", "")
-      .formParam("enrolment[0].name", "HMRC-PODS-ORG")
-      .formParam("enrolment[0].taxIdentifier[0].name", "PSAID")
-      .formParam("enrolment[0].taxIdentifier[0].value", psaid)
-      .formParam("enrolment[0].state", "Activated")
-      .formParam("presets-dropdown", "IR-SA")
-      .formParam("credentialRole", "User")
-      .formParam("email", "user@test.com")
+      .formParam("csrfToken", ElCompiler.parse("$${csrfToken}"))
+      .formParam("redirectionUrl", StaticValueExpression(redirectUrl))
+      .formParam("credentialStrength", StaticValueExpression("strong"))
+      .formParam("authorityId", StaticValueExpression(""))
+      .formParam("confidenceLevel", StaticValueExpression("50"))
+      .formParam("affinityGroup", StaticValueExpression("Individual"))
+      .formParam("gatewayToken", StaticValueExpression(""))
+      .formParam("enrolment[0].name", StaticValueExpression("HMRC-PODS-ORG"))
+      .formParam("enrolment[0].taxIdentifier[0].name", StaticValueExpression("PSAID"))
+      .formParam("enrolment[0].taxIdentifier[0].value", StaticValueExpression(psaid))
+      .formParam("enrolment[0].state", StaticValueExpression("Activated"))
+      .formParam("presets-dropdown", StaticValueExpression("IR-SA"))
+      .formParam("credentialRole", StaticValueExpression("User"))
+      .formParam("email", StaticValueExpression("user@test.com"))
       .formParam("excludeGnapToken", false)
       .check(status.is(303))
-      .check(header("Location").is(redirectUrl))
+      .check(header(StaticValueExpression("Location")).is(StaticValueExpression(redirectUrl)))
 
 
 }

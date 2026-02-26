@@ -19,6 +19,7 @@ package uk.gov.hmrc.perftests.oaotc
 import io.gatling.core.Predef._
 import io.gatling.core.check.CheckBuilder
 import io.gatling.core.check.regex.RegexCheckType
+import io.gatling.core.session.StaticValueExpression
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
@@ -56,7 +57,8 @@ object HomePageRequests extends BaseRequests {
   val postWhatWillBeNeededPage: HttpRequestBuilder =
     http("Post What will be needed Page")
       .post(otcWhatWillBeNeededUrl)
-      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("continue", StaticValueExpression("Continue"))
       .check(status.is(303))
 
   val getTaskListPage: HttpRequestBuilder =

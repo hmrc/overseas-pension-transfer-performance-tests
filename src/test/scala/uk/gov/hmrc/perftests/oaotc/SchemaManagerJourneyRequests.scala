@@ -19,6 +19,7 @@ package uk.gov.hmrc.perftests.oaotc
 import io.gatling.core.Predef._
 import io.gatling.core.check.CheckBuilder
 import io.gatling.core.check.regex.RegexCheckType
+import io.gatling.core.session.StaticValueExpression
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
@@ -40,8 +41,8 @@ object SchemaManagerJourneyRequests extends BaseRequests {
   def postTypeOfSchemeManager(value:String): HttpRequestBuilder =
     http("POST - Scheme manager type page")
       .post(SchemeManagerUrl+"scheme-manager-type")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", value)
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression(value))
       .check(status.is(303))
 
   def getNameOfSchemeManager: HttpRequestBuilder =
@@ -53,9 +54,9 @@ object SchemaManagerJourneyRequests extends BaseRequests {
   def postNameOfSchemeManager(memberFirstName: String, memberLastName: String): HttpRequestBuilder =
     http("POST - Scheme manager name page")
       .post(SchemeManagerUrl+"scheme-managers-name")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("schemeManagersFirstName", memberFirstName)
-      .formParam("schemeManagersLastName", memberLastName)
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("schemeManagersFirstName", StaticValueExpression(memberFirstName))
+      .formParam("schemeManagersLastName", StaticValueExpression(memberLastName))
       .check(status.is(303))
 
 
@@ -67,13 +68,13 @@ object SchemaManagerJourneyRequests extends BaseRequests {
 
   def postSchemeManagerAddress: HttpRequestBuilder =
     http("POST - Scheme manager address page")
-      .get(SchemeManagerUrl+"scheme-managers-address")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("addressLine1", "line 1")
-      .formParam("addressLine2", "line 2")
-      .formParam("countryCode", "GB")
-      .formParam("postcode", "ukpost")
-      .check(status.is(200))
+      .post(SchemeManagerUrl+"scheme-managers-address")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("addressLine1", StaticValueExpression("line 1"))
+      .formParam("addressLine2", StaticValueExpression("line 2"))
+      .formParam("countryCode", StaticValueExpression("GB"))
+      .formParam("postcode", StaticValueExpression("ukpost"))
+      .check(status.is(303))
 
   def getSchemeManagerEmail: HttpRequestBuilder =
     http("GET - Scheme manager email page")
@@ -83,10 +84,10 @@ object SchemaManagerJourneyRequests extends BaseRequests {
 
   def postSchemeManagerEmail: HttpRequestBuilder =
     http("POST - Scheme manager email page")
-      .get(SchemeManagerUrl+"scheme-managers-email")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("emailAddress", "name@example.com")
-      .check(status.is(200))
+      .post(SchemeManagerUrl+"scheme-managers-email")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("emailAddress", StaticValueExpression("name@example.com"))
+      .check(status.is(303))
 
   def getSchemeManagerContact: HttpRequestBuilder =
     http("GET - Scheme manager contact page")
@@ -96,10 +97,10 @@ object SchemaManagerJourneyRequests extends BaseRequests {
 
   def postSchemeManagerContact: HttpRequestBuilder =
     http("POST - Scheme manager contact page")
-      .get(SchemeManagerUrl+"scheme-managers-contact")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("contactNumber", "+441234567890")
-      .check(status.is(200))
+      .post(SchemeManagerUrl+"scheme-managers-contact")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("contactNumber", StaticValueExpression("+441234567890"))
+      .check(status.is(303))
 
   def getSchemeManagerCheckYourAnswers: HttpRequestBuilder =
     http("GET - Member check your answers page")
@@ -116,8 +117,8 @@ object SchemaManagerJourneyRequests extends BaseRequests {
   def postNameOfOrganisation: HttpRequestBuilder =
     http("POST -organisation name page")
       .post(SchemeManagerUrl+"organisation-name")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("organisationName", "OrganisationName")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("organisationName", StaticValueExpression("OrganisationName"))
       .check(status.is(303))
 
 
@@ -130,9 +131,9 @@ object SchemaManagerJourneyRequests extends BaseRequests {
   def postNameOfOrganisationIndividual: HttpRequestBuilder =
     http("POST - Scheme manager name page")
       .post(SchemeManagerUrl+"organisation-individual-name")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("orgIndFirstName", "FirstName")
-      .formParam("orgIndLastName", "LastName")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("orgIndFirstName", StaticValueExpression("FirstName"))
+      .formParam("orgIndLastName", StaticValueExpression("LastName"))
       .check(status.is(303))
 
 }
