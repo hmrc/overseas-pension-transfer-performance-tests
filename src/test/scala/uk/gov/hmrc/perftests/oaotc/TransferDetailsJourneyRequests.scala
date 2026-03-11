@@ -19,6 +19,7 @@ package uk.gov.hmrc.perftests.oaotc
 import io.gatling.core.Predef._
 import io.gatling.core.check.CheckBuilder
 import io.gatling.core.check.regex.RegexCheckType
+import io.gatling.core.session.StaticValueExpression
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
@@ -42,16 +43,16 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postTypeOfAsset(valuePosition:String , value: String): HttpRequestBuilder =
     http("POST - Type of asset page")
       .post(TransferDetailsUrl+"assets/type-of-asset")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value"+valuePosition, value)
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value"+valuePosition, StaticValueExpression(value))
       .check(status.is(303))
 
   def postTypeOfMultipleAssets(valuePosition:String , value: String,valuePositionTwo:String , valueTwo: String): HttpRequestBuilder =
     http("POST - Multiple type selection of assets page")
       .post(TransferDetailsUrl+"assets/type-of-asset")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value"+valuePosition, value)
-      .formParam("value"+valuePositionTwo, valueTwo)
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value"+valuePosition, StaticValueExpression(value))
+      .formParam("value"+valuePositionTwo, StaticValueExpression(valueTwo))
       .check(status.is(303))
 
 
@@ -72,8 +73,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postQuotedSharesCompanyName : HttpRequestBuilder =
     http("POST - Quoted shares company name page")
       .post(TransferDetailsUrl+"assets/quoted-shares-company-name?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "company name")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("company name"))
       .check(status.is(303))
 
   def getQuotedSharesValue: HttpRequestBuilder =
@@ -85,8 +86,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postQuotedSharesValue : HttpRequestBuilder =
     http("POST - Quoted shares value page")
       .post(TransferDetailsUrl+"assets/quoted-shares-value?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "60000")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("60000"))
       .check(status.is(303))
 
   def getQuotedSharesNumber: HttpRequestBuilder =
@@ -98,8 +99,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postQuotedSharesNumber : HttpRequestBuilder =
     http("POST - Quoted shares number page")
       .post(TransferDetailsUrl+"assets/quoted-shares-number?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "60")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("60"))
       .check(status.is(303))
 
   def getQuotedSharesClass: HttpRequestBuilder =
@@ -111,8 +112,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postQuotedSharesClass : HttpRequestBuilder =
     http("POST - Quoted shares class page")
       .post(TransferDetailsUrl+"assets/quoted-shares-class?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "A")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("A"))
       .check(status.is(303))
 
   def getQuotedSharesCheckYourAnswers: HttpRequestBuilder =
@@ -138,8 +139,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postUnquotedSharesCompanyName : HttpRequestBuilder =
     http("POST - Unquoted shares company name page")
       .post(TransferDetailsUrl+"assets/unquoted-shares-company-name?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "company name")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("company name"))
       .check(status.is(303))
 
   def getUnquotedSharesValue: HttpRequestBuilder =
@@ -151,8 +152,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postUnquotedSharesValue : HttpRequestBuilder =
     http("POST - Unquoted shares value page")
       .post(TransferDetailsUrl+"assets/unquoted-shares-value?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "60000")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("60000"))
       .check(status.is(303))
 
   def getUnquotedSharesNumber: HttpRequestBuilder =
@@ -164,8 +165,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postUnquotedSharesNumber : HttpRequestBuilder =
     http("POST - unquoted shares number page")
       .post(TransferDetailsUrl+"assets/unquoted-shares-number?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "60")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("60"))
       .check(status.is(303))
 
   def getUnquotedSharesClass: HttpRequestBuilder =
@@ -177,8 +178,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postUnquotedSharesClass : HttpRequestBuilder =
     http("POST - Unquoted shares class page")
       .post(TransferDetailsUrl+"assets/unquoted-shares-class?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "A")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("A"))
       .check(status.is(303))
 
   def getUnquotedSharesCheckYourAnswers: HttpRequestBuilder =
@@ -203,14 +204,14 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postPropertyAddress : HttpRequestBuilder =
     http("POST - Property address page")
       .post(TransferDetailsUrl+"assets/property-address?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("addressLine1", "line 1")
-      .formParam("addressLine2", "line 2")
-      .formParam("addressLine3", "")
-      .formParam("addressLine4", "")
-      .formParam("addressLine5", "")
-      .formParam("countryCode", "GB")
-      .formParam("postcode", "SW1A 1AA")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("addressLine1", StaticValueExpression("line 1"))
+      .formParam("addressLine2", StaticValueExpression("line 2"))
+      .formParam("addressLine3", StaticValueExpression(""))
+      .formParam("addressLine4", StaticValueExpression(""))
+      .formParam("addressLine5", StaticValueExpression(""))
+      .formParam("countryCode", StaticValueExpression("GB"))
+      .formParam("postcode", StaticValueExpression("SW1A 1AA"))
       .check(status.is(303))
 
   def getPropertyValue: HttpRequestBuilder =
@@ -222,8 +223,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postPropertyValue : HttpRequestBuilder =
     http("POST - Property value page")
       .post(TransferDetailsUrl+"assets/property-value?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "60000")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("60000"))
       .check(status.is(303))
 
   def getPropertyDescription: HttpRequestBuilder =
@@ -235,8 +236,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postPropertyDescription : HttpRequestBuilder =
     http("POST - Property description page")
       .post(TransferDetailsUrl+"assets/property-description?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "prop description")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("prop description"))
       .check(status.is(303))
 
   def getPropertyCheckYourAnswers: HttpRequestBuilder =
@@ -254,8 +255,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postCashInTransfer : HttpRequestBuilder =
     http("POST - Cash in transfer page")
       .post(TransferDetailsUrl+"assets/cash-amount-in-transfer")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("cashInTransfer", "60000")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("cashInTransfer", StaticValueExpression("60000"))
       .check(status.is(303))
 
   def getOtherAssetsStart: HttpRequestBuilder =
@@ -273,8 +274,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postOtherAssetsDescription : HttpRequestBuilder =
     http("POST - Other assets description page")
       .post(TransferDetailsUrl+"assets/other-assets-description?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "assets description")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("assets description"))
       .check(status.is(303))
 
   def getOtherAssetsValue: HttpRequestBuilder =
@@ -286,8 +287,8 @@ object TransferDetailsJourneyRequests extends BaseRequests {
   def postOtherAssetsValue : HttpRequestBuilder =
     http("POST - Other assets value page")
       .post(TransferDetailsUrl+"assets/other-assets-value?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "60000")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("value", StaticValueExpression("60000"))
       .check(status.is(303))
 
   def getOtherAssetsCheckYourAnswers: HttpRequestBuilder =
@@ -297,9 +298,9 @@ object TransferDetailsJourneyRequests extends BaseRequests {
 
   def postOtherAssetsCheckYourAnswers: HttpRequestBuilder =
     http("Post - Other assets check your answers page")
-      .get(TransferDetailsUrl+"assets/other-assets-check-your-answers?index=0")
-      .formParam("csrfToken", "#{csrfToken}")
-      .check(status.is(200))
+      .post(TransferDetailsUrl+"assets/other-assets-check-your-answers")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .check(status.is(303))
 
   def getOtherAssetsAmendContinue: HttpRequestBuilder =
     http("GET - Other assets amend continue page")
@@ -308,11 +309,10 @@ object TransferDetailsJourneyRequests extends BaseRequests {
 
   def postOtherAssetsAmendContinue: HttpRequestBuilder =
     http("POST - Other assets amend continue page")
-      .get(TransferDetailsUrl+"assets/other-assets-amend-continue")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("add-another", "No")
-      .check(status.is(200))
+      .post(TransferDetailsUrl+"assets/other-assets-amend-continue")
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("add-another", StaticValueExpression("No"))
+      .check(status.is(303))
 
   def getCheckYourAnswers: HttpRequestBuilder =
     http("GET - Check your answers page")

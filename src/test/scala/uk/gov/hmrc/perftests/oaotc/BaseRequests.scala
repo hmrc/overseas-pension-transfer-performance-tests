@@ -16,9 +16,8 @@
 
 package uk.gov.hmrc.perftests.oaotc
 
-import io.gatling.core.check.CheckBuilder
-import io.gatling.core.check.regex.RegexCheckType
 import io.gatling.core.Predef._
+import io.gatling.core.structure.ChainBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 import scala.concurrent.duration.DurationInt
@@ -42,6 +41,6 @@ trait BaseRequests extends ServicesConfiguration {
 
 
 
-  def sessionPause(int: Int) = pause(int second)
+  def sessionPause(int: Int): ChainBuilder = pause(int second)
 }
 

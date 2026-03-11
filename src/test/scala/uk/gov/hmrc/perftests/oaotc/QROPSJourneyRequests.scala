@@ -19,6 +19,7 @@ package uk.gov.hmrc.perftests.oaotc
 import io.gatling.core.Predef._
 import io.gatling.core.check.CheckBuilder
 import io.gatling.core.check.regex.RegexCheckType
+import io.gatling.core.session.StaticValueExpression
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
@@ -39,8 +40,8 @@ object  QROPSJourneyRequests extends BaseRequests {
   def postQROPSName(qropsName: String): HttpRequestBuilder =
     http("POST - QROPS Name page")
       .post(MemberDetailsUrl + "qrops-name")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("qropsName", qropsName)
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("qropsName", StaticValueExpression(qropsName))
       .check(status.is(303))
 
   def getQROPSRef: HttpRequestBuilder =
@@ -52,8 +53,8 @@ object  QROPSJourneyRequests extends BaseRequests {
   def postQROPSRef(qropsRef: String): HttpRequestBuilder =
     http("POST - QROPS Reference page")
       .post(MemberDetailsUrl + "qrops-reference")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("qropsRef", qropsRef)
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("qropsRef", StaticValueExpression(qropsRef))
       .check(status.is(303))
 
   def getQROPSAddress: HttpRequestBuilder =
@@ -65,10 +66,10 @@ object  QROPSJourneyRequests extends BaseRequests {
   def postQROPSAddress(qropsAddress1: String, qropsAddress2: String, qropsCountry: String): HttpRequestBuilder =
     http("POST - QROPS Address page")
       .post(MemberDetailsUrl + "qrops-address")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("addressLine1", qropsAddress1)
-      .formParam("addressLine2", qropsAddress2)
-      .formParam("countryCode", qropsCountry)
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("addressLine1", StaticValueExpression(qropsAddress1))
+      .formParam("addressLine2", StaticValueExpression(qropsAddress2))
+      .formParam("countryCode", StaticValueExpression(qropsCountry))
       .check(status.is(303))
 
   def getQROPSCountry: HttpRequestBuilder =
@@ -80,8 +81,8 @@ object  QROPSJourneyRequests extends BaseRequests {
   def postQROPSCountry(qropsCountryLookup: String): HttpRequestBuilder =
     http("POST - QROPS Country page")
       .post(MemberDetailsUrl + "qrops-country")
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("countryCode", qropsCountryLookup)
+      .formParam("csrfToken", session => session("csrfToken").as[String])
+      .formParam("countryCode", StaticValueExpression(qropsCountryLookup))
       .check(status.is(303))
 
   def getQROPSCYA: HttpRequestBuilder =
