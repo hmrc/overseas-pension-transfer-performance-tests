@@ -23,8 +23,7 @@ import io.gatling.core.session.StaticValueExpression
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-
-object  QROPSJourneyRequests extends BaseRequests {
+object QROPSJourneyRequests extends BaseRequests {
   lazy val MemberDetailsUrl: String = otcRedirectUrl + "/qrops-details/"
 
   val CsrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)""""

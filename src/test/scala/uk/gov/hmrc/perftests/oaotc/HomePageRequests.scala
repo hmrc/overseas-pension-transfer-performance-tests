@@ -23,7 +23,6 @@ import io.gatling.core.session.StaticValueExpression
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-
 object HomePageRequests extends BaseRequests {
   lazy val homeUrl: String = otcRedirectUrl + "/start?srn=S2400000001"
 
@@ -46,13 +45,11 @@ object HomePageRequests extends BaseRequests {
       .get(otcDashBoardUrl)
       .check(status.is(200))
 
-
   val getWhatWillBeNeededPage: HttpRequestBuilder =
     http("Get What will be needed Page")
       .get(otcWhatWillBeNeededUrl)
       .check(status.is(200))
       .check(saveCsrfToken())
-
 
   val postWhatWillBeNeededPage: HttpRequestBuilder =
     http("Post What will be needed Page")

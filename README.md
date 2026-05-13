@@ -1,34 +1,27 @@
-**This is a template README.md.  Be sure to update this with project specific content that describes your performance test project.**
-
 # overseas-pension-transfer-performance-tests
 
-Performance test suite for the `<digital service name>`, using [performance-test-runner](https://github.com/hmrc/performance-test-runner) under the hood.
+Performance test suite for the `overseas-pension-transfer-frontend` service, using performance-test-runner.
 
 ## Pre-requisites
 
 ### Services
+Start the docker desktop application (and make sure the mongodb is running on the docker)
 
-Start Mongo Docker container as follows:
-
-```bash
-docker run --rm -d -p 27017:27017 --name mongo mongo:4.4
-```
-
-Start `PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS` services as follows:
+Start `OVERSEAS_PENSION_TRANSFER_ALL` services as follows:
 
 ```bash
-sm2 --start PLATFORM_TEST_EXAMPLE_UI_JOURNEY_TESTS
+sm2 --start OVERSEAS_PENSION_TRANSFER_ALL
 ```
 
 ### Logging
 
 The default log level for all HTTP requests is set to `WARN`. Configure [logback.xml](src/test/resources/logback.xml) to update this if required.
 
-### WARNING :warning:
+### WARNING
 
-Do **NOT** run a full performance test against staging from your local machine. Please [implement a new performance test job](https://confluence.tools.tax.service.gov.uk/display/DTRG/Practical+guide+to+performance+testing+a+digital+service#Practicalguidetoperformancetestingadigitalservice-SettingupabuildonJenkinstorunagainsttheStagingenvironment) and execute your job from the dashboard in [Performance Jenkins](https://performance.tools.staging.tax.service.gov.uk).
+Do **NOT** run a full performance test against staging from your local machine. Please execute your job from the dashboard in Performance Jenkins.
 
-## Tests
+### Tests
 
 Run smoke test (locally) as follows:
 
@@ -40,6 +33,10 @@ Run full performance test (locally) as follows:
 
 ```bash
 sbt -DrunLocal=true gatling:test
+
+or
+
+./run_local.sh
 ```
 
 Run smoke test (staging) as follows:
