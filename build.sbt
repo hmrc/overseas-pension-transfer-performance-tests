@@ -7,7 +7,7 @@ lazy val root = (project in file("."))
     crossScalaVersions := Seq("2.13.16", "3.3.4"),
     scalacOptions ++= Seq("-language:postfixOps"),
     libraryDependencies ++= Seq(
-      "uk.gov.hmrc"          %% "performance-test-runner"   % "6.3.0"         % Test
+      "uk.gov.hmrc" %% "performance-test-runner" % "6.3.0" % Test
     ) ++ Dependencies.test,
     // Enabling sbt-auto-build plugin provides DefaultBuildSettings with default `testOptions` from `sbt-settings` plugin.
     // These testOptions are not compatible with `sbt gatling:test`. So we have to override testOptions here.

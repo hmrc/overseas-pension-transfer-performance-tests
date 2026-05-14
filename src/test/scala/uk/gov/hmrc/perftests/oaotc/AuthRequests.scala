@@ -50,5 +50,4 @@ object AuthRequests extends BaseRequests {
       .check(status.is(303))
       .check(header(StaticValueExpression("Location")).is(StaticValueExpression(redirectUrl)))
 
-
 }

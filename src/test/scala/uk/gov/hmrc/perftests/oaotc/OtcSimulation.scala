@@ -28,14 +28,14 @@ class OtcSimulation extends PerformanceTestRunner {
 
   setup("MemberJourneyIsUkResident", "Member is UK resident").withRequests(
     getAuthWizard,
-    postLoginAsPspUser(psaid= "A2100005"),
+    postLoginAsPspUser(psaid = "A2100005"),
     getHome,
     getDashBoardPage,
     getWhatWillBeNeededPage,
     postWhatWillBeNeededPage,
     getTaskListPage,
     getMemberName,
-    postMemberName("FirstName","LastName"),
+    postMemberName("FirstName", "LastName"),
     getMemberNino,
     postMemberNino,
     getMemberDOB,
@@ -44,18 +44,17 @@ class OtcSimulation extends PerformanceTestRunner {
     postMemberCurrentAddress,
     getMemberIsResidentUk,
     getMemberCheckYourAnswers
-
   )
   setup("MemberJourneyIsNotUkResident", "Member is not a UK resident").withRequests(
     getAuthWizard,
-    postLoginAsPspUser(psaid= "A2100005"),
+    postLoginAsPspUser(psaid = "A2100005"),
     getHome,
     getDashBoardPage,
     getWhatWillBeNeededPage,
     postWhatWillBeNeededPage,
     getTaskListPage,
     getMemberName,
-    postMemberName("FirstName","LastName"),
+    postMemberName("FirstName", "LastName"),
     getMemberNino,
     postMemberNino,
     getMemberDOB,
@@ -69,36 +68,36 @@ class OtcSimulation extends PerformanceTestRunner {
     getMemberCheckYourAnswers
   )
   setup("TransferDetailsQuotedShareJourney", "Quoted shares type").withRequests(
-      getAuthWizard,
-      postLoginAsPspUser(psaid= "A2100005"),
-      getHome,
-      getDashBoardPage,
-      getWhatWillBeNeededPage,
-      postWhatWillBeNeededPage,
-      getTaskListPage,
-      getTypeOfAsset,
-      postTypeOfAsset("[2]","quotedShareAssets"),
-      getQuotedSharesStart,
-      getQuotedSharesCompanyName,
-      postQuotedSharesCompanyName,
-      getQuotedSharesValue,
-      postQuotedSharesValue,
-      getQuotedSharesNumber,
-      postQuotedSharesNumber,
-      getQuotedSharesClass,
-      postQuotedSharesClass,
-      getQuotedSharesCheckYourAnswers
-  )
-  setup("TransferDetailsUnquotedShareJourney", "Unquoted shares type").withRequests(
     getAuthWizard,
-    postLoginAsPspUser(psaid= "A2100005"),
+    postLoginAsPspUser(psaid = "A2100005"),
     getHome,
     getDashBoardPage,
     getWhatWillBeNeededPage,
     postWhatWillBeNeededPage,
     getTaskListPage,
     getTypeOfAsset,
-    postTypeOfAsset("[1]","unquotedShareAssets"),
+    postTypeOfAsset("[2]", "quotedShareAssets"),
+    getQuotedSharesStart,
+    getQuotedSharesCompanyName,
+    postQuotedSharesCompanyName,
+    getQuotedSharesValue,
+    postQuotedSharesValue,
+    getQuotedSharesNumber,
+    postQuotedSharesNumber,
+    getQuotedSharesClass,
+    postQuotedSharesClass,
+    getQuotedSharesCheckYourAnswers
+  )
+  setup("TransferDetailsUnquotedShareJourney", "Unquoted shares type").withRequests(
+    getAuthWizard,
+    postLoginAsPspUser(psaid = "A2100005"),
+    getHome,
+    getDashBoardPage,
+    getWhatWillBeNeededPage,
+    postWhatWillBeNeededPage,
+    getTaskListPage,
+    getTypeOfAsset,
+    postTypeOfAsset("[1]", "unquotedShareAssets"),
     getUnquotedSharesClass,
     getUnquotedSharesCompanyName,
     postUnquotedSharesCompanyName,
@@ -113,14 +112,14 @@ class OtcSimulation extends PerformanceTestRunner {
 
   setup("TransferDetailsPropertyJourney", "Property type").withRequests(
     getAuthWizard,
-    postLoginAsPspUser(psaid= "A2100005"),
+    postLoginAsPspUser(psaid = "A2100005"),
     getHome,
     getDashBoardPage,
     getWhatWillBeNeededPage,
     postWhatWillBeNeededPage,
     getTaskListPage,
     getTypeOfAsset,
-    postTypeOfAsset("[3]","propertyAsset"),
+    postTypeOfAsset("[3]", "propertyAsset"),
     getPropertyStart,
     getPropertyAddress,
     postPropertyAddress,
@@ -129,19 +128,18 @@ class OtcSimulation extends PerformanceTestRunner {
     getPropertyDescription,
     postPropertyDescription,
     getPropertyCheckYourAnswers
-
   )
 
   setup("TransferDetailsCashAndOtherAssetsJourney", "Cash and other assets type").withRequests(
     getAuthWizard,
-    postLoginAsPspUser(psaid= "A2100005"),
+    postLoginAsPspUser(psaid = "A2100005"),
     getHome,
     getDashBoardPage,
     getWhatWillBeNeededPage,
     postWhatWillBeNeededPage,
     getTaskListPage,
     getTypeOfAsset,
-    postTypeOfMultipleAssets("[0]","cashAssets","[4]","otherAsset"),
+    postTypeOfMultipleAssets("[0]", "cashAssets", "[4]", "otherAsset"),
     getCashInTransfer,
     postCashInTransfer,
     getOtherAssetsStart,
@@ -153,12 +151,11 @@ class OtcSimulation extends PerformanceTestRunner {
     getOtherAssetsAmendContinue,
     postOtherAssetsAmendContinue,
     getCheckYourAnswers
-
   )
 
   setup("QROPSJourney", "QROPS Journey").withRequests(
     getAuthWizard,
-    postLoginAsPspUser(psaid= "A2100005"),
+    postLoginAsPspUser(psaid = "A2100005"),
     getHome,
     getDashBoardPage,
     getWhatWillBeNeededPage,
@@ -169,14 +166,14 @@ class OtcSimulation extends PerformanceTestRunner {
     getQROPSRef,
     postQROPSRef("QROPS123456"),
     getQROPSAddress,
-    postQROPSAddress("Some Building","Some Street", "United Kingdom"),
-      getQROPSCountry,
-    postQROPSCountry("United Kingdom"),
+    postQROPSAddress("Some Building", "Some Street", "United Kingdom"),
+    getQROPSCountry,
+    postQROPSCountry("United Kingdom")
   )
 
   setup("SchemeManagerAsIndividualJourney", "Scheme manager as Individual").withRequests(
     getAuthWizard,
-    postLoginAsPspUser(psaid= "A2100005"),
+    postLoginAsPspUser(psaid = "A2100005"),
     getHome,
     getDashBoardPage,
     getWhatWillBeNeededPage,
@@ -185,7 +182,7 @@ class OtcSimulation extends PerformanceTestRunner {
     getTypeOfSchemeManager,
     postTypeOfSchemeManager("individual"),
     getNameOfSchemeManager,
-    postNameOfSchemeManager("First","Name"),
+    postNameOfSchemeManager("First", "Name"),
     getSchemeManagerAddress,
     postSchemeManagerAddress,
     getSchemeManagerEmail,
@@ -197,7 +194,7 @@ class OtcSimulation extends PerformanceTestRunner {
 
   setup("SchemeManagerAsOrganisationJourney", "Scheme manager as Organisation").withRequests(
     getAuthWizard,
-    postLoginAsPspUser(psaid= "A2100005"),
+    postLoginAsPspUser(psaid = "A2100005"),
     getHome,
     getDashBoardPage,
     getWhatWillBeNeededPage,

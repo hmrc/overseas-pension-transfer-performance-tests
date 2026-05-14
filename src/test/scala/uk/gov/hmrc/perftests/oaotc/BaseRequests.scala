@@ -28,7 +28,8 @@ trait BaseRequests extends ServicesConfiguration {
 
   val otcRedirectUrl: String = baseUrl + "/report-transfer-qualifying-recognised-overseas-pension-scheme"
 
-  val otcSrnUrl: String = baseUrl + "/report-transfer-qualifying-recognised-overseas-pension-scheme/start?srn=S2400000001"
+  val otcSrnUrl: String =
+    baseUrl + "/report-transfer-qualifying-recognised-overseas-pension-scheme/start?srn=S2400000001"
 
   val otcDashBoardUrl: String = otcRedirectUrl + "/dashboard"
 
@@ -38,9 +39,5 @@ trait BaseRequests extends ServicesConfiguration {
 
   val authWizardUrl: String = baseUrlFor("auth-login-stub") + "/auth-login-stub/gg-sign-in"
 
-
-
-
   def sessionPause(int: Int): ChainBuilder = pause(int second)
 }
-

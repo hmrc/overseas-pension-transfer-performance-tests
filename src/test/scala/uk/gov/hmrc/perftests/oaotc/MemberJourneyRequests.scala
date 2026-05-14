@@ -23,9 +23,8 @@ import io.gatling.core.session.StaticValueExpression
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-
 object MemberJourneyRequests extends BaseRequests {
-  //Possibly remove this val as doesn't look to be used?
+  // Possibly remove this val as doesn't look to be used?
   lazy val MemberDetailsUrl: String = otcRedirectUrl + "/member-details/"
 
   val CsrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)""""
@@ -34,15 +33,13 @@ object MemberJourneyRequests extends BaseRequests {
 
   def getMemberName: HttpRequestBuilder =
     http("GET - Member Name page")
-      .get(MemberDetailsUrl+"member-name")
+      .get(MemberDetailsUrl + "member-name")
       .check(status.is(200))
       .check(saveCsrfToken())
 
-
-
   def postMemberName(memberFirstName: String, memberLastName: String): HttpRequestBuilder =
     http("POST - Member Name page")
-      .post(MemberDetailsUrl+"member-name")
+      .post(MemberDetailsUrl + "member-name")
       .formParam("csrfToken", session => session("csrfToken").as[String])
       .formParam("memberFirstName", StaticValueExpression(memberFirstName))
       .formParam("memberLastName", StaticValueExpression(memberLastName))
@@ -50,26 +47,26 @@ object MemberJourneyRequests extends BaseRequests {
 
   def getMemberNino: HttpRequestBuilder =
     http("GET - Member Nino page")
-      .get(MemberDetailsUrl+"member-nino")
+      .get(MemberDetailsUrl + "member-nino")
       .check(status.is(200))
       .check(saveCsrfToken())
 
   def postMemberNino: HttpRequestBuilder =
     http("POST - Member Nino page")
-      .post(MemberDetailsUrl+"member-nino")
+      .post(MemberDetailsUrl + "member-nino")
       .formParam("csrfToken", session => session("csrfToken").as[String])
       .formParam("value", StaticValueExpression("QQ123456A"))
       .check(status.is(303))
 
   def getMemberDOB: HttpRequestBuilder =
     http("GET - Member DOB page")
-      .get(MemberDetailsUrl+"member-date-of-birth")
+      .get(MemberDetailsUrl + "member-date-of-birth")
       .check(status.is(200))
       .check(saveCsrfToken())
 
   def postMemberDOB: HttpRequestBuilder =
     http("POST - Member DOB page")
-      .post(MemberDetailsUrl+"member-date-of-birth")
+      .post(MemberDetailsUrl + "member-date-of-birth")
       .formParam("csrfToken", session => session("csrfToken").as[String])
       .formParam("value.day", StaticValueExpression("12"))
       .formParam("value.month", StaticValueExpression("1"))
@@ -78,13 +75,13 @@ object MemberJourneyRequests extends BaseRequests {
 
   def getMemberCurrentAddress: HttpRequestBuilder =
     http("GET - Member Current address page")
-      .get(MemberDetailsUrl+"members-current-address")
+      .get(MemberDetailsUrl + "members-current-address")
       .check(status.is(200))
       .check(saveCsrfToken())
 
   def postMemberCurrentAddress: HttpRequestBuilder =
     http("POST - Member Current address page")
-      .post(MemberDetailsUrl+"members-current-address")
+      .post(MemberDetailsUrl + "members-current-address")
       .formParam("csrfToken", session => session("csrfToken").as[String])
       .formParam("addressLine1", StaticValueExpression("line 1"))
       .formParam("addressLine2", StaticValueExpression("line 2"))
@@ -97,33 +94,33 @@ object MemberJourneyRequests extends BaseRequests {
 
   def getMemberIsResidentUk: HttpRequestBuilder =
     http("GET - Member is resident uk page")
-      .get(MemberDetailsUrl+"member-is-resident-uk")
+      .get(MemberDetailsUrl + "member-is-resident-uk")
       .check(status.is(200))
       .check(saveCsrfToken())
 
   def postMemberIsResidentUk(value: Boolean): HttpRequestBuilder =
     http("POST - Member is resident uk page")
-      .post(MemberDetailsUrl+"member-is-resident-uk")
+      .post(MemberDetailsUrl + "member-is-resident-uk")
       .formParam("csrfToken", session => session("csrfToken").as[String])
       .formParam("value", StaticValueExpression(value))
       .check(status.is(303))
 
   def getMemberHasEverBeenResidentUk: HttpRequestBuilder =
     http("GET - Member has ever been resident uk page")
-      .get(MemberDetailsUrl+"member-has-ever-been-resident-uk")
+      .get(MemberDetailsUrl + "member-has-ever-been-resident-uk")
       .check(status.is(200))
       .check(saveCsrfToken())
 
   def postMemberHasEverBeenResidentUk(value: Boolean): HttpRequestBuilder =
     http("POST - Member has ever been resident uk page")
-      .post(MemberDetailsUrl+"member-has-ever-been-resident-uk")
+      .post(MemberDetailsUrl + "member-has-ever-been-resident-uk")
       .formParam("csrfToken", session => session("csrfToken").as[String])
       .formParam("value", StaticValueExpression(value))
       .check(status.is(303))
 
   def getMemberCheckYourAnswers: HttpRequestBuilder =
     http("GET - Member check your answers page")
-      .get(MemberDetailsUrl+"check-your-answers")
+      .get(MemberDetailsUrl + "check-your-answers")
       .check(status.is(200))
       .check(saveCsrfToken())
 }
