@@ -26,58 +26,50 @@ import uk.gov.hmrc.perftests.oaotc.TransferDetailsJourneyRequests._
 
 class OtcSimulation extends PerformanceTestRunner {
 
-  setup("MemberJourneyIsUkResident", "Member is UK resident").withRequests(
+  setup("LoginAndNavigateToTaskList", "Login and navigate to task list").withRequests(
     getAuthWizard,
     postLoginAsPspUser(psaid = "A2100005"),
     getHome,
     getDashBoardPage,
     getWhatWillBeNeededPage,
     postWhatWillBeNeededPage,
-    getTaskListPage,
+    getTaskListPage
+  )
+
+  setup("MemberBasicDetails", "Enter member basic details").withRequests(
     getMemberName,
     postMemberName("FirstName", "LastName"),
     getMemberNino,
     postMemberNino,
     getMemberDOB,
-    postMemberDOB,
+    postMemberDOB
+  )
+
+  setup("MemberCurrentAddress", "Enter member current address").withRequests(
     getMemberCurrentAddress,
-    postMemberCurrentAddress,
+    postMemberCurrentAddress
+  )
+
+  setup("MemberIsUkResident", "Member is UK resident").withRequests(
     getMemberIsResidentUk,
     getMemberCheckYourAnswers
   )
-  setup("MemberJourneyIsNotUkResident", "Member is not a UK resident").withRequests(
-    getAuthWizard,
-    postLoginAsPspUser(psaid = "A2100005"),
-    getHome,
-    getDashBoardPage,
-    getWhatWillBeNeededPage,
-    postWhatWillBeNeededPage,
-    getTaskListPage,
-    getMemberName,
-    postMemberName("FirstName", "LastName"),
-    getMemberNino,
-    postMemberNino,
-    getMemberDOB,
-    postMemberDOB,
-    getMemberCurrentAddress,
-    postMemberCurrentAddress,
+
+  setup("MemberIsNotUkResident", "Member is not UK resident").withRequests(
     getMemberIsResidentUk,
     postMemberIsResidentUk(false),
     getMemberHasEverBeenResidentUk,
     postMemberHasEverBeenResidentUk(false),
     getMemberCheckYourAnswers
   )
-  setup("TransferDetailsQuotedShareJourney", "Quoted shares type").withRequests(
-    getAuthWizard,
-    postLoginAsPspUser(psaid = "A2100005"),
-    getHome,
-    getDashBoardPage,
-    getWhatWillBeNeededPage,
-    postWhatWillBeNeededPage,
-    getTaskListPage,
+
+  setup("TransferQuotedShareSelection", "Select quoted shares asset type").withRequests(
     getTypeOfAsset,
     postTypeOfAsset("[2]", "quotedShareAssets"),
-    getQuotedSharesStart,
+    getQuotedSharesStart
+  )
+
+  setup("TransferQuotedShareDetails", "Enter quoted shares details").withRequests(
     getQuotedSharesCompanyName,
     postQuotedSharesCompanyName,
     getQuotedSharesValue,
@@ -88,16 +80,13 @@ class OtcSimulation extends PerformanceTestRunner {
     postQuotedSharesClass,
     getQuotedSharesCheckYourAnswers
   )
-  setup("TransferDetailsUnquotedShareJourney", "Unquoted shares type").withRequests(
-    getAuthWizard,
-    postLoginAsPspUser(psaid = "A2100005"),
-    getHome,
-    getDashBoardPage,
-    getWhatWillBeNeededPage,
-    postWhatWillBeNeededPage,
-    getTaskListPage,
+
+  setup("TransferUnquotedShareSelection", "Select unquoted shares asset type").withRequests(
     getTypeOfAsset,
-    postTypeOfAsset("[1]", "unquotedShareAssets"),
+    postTypeOfAsset("[1]", "unquotedShareAssets")
+  )
+
+  setup("TransferUnquotedShareDetails", "Enter unquoted shares details").withRequests(
     getUnquotedSharesClass,
     getUnquotedSharesCompanyName,
     postUnquotedSharesCompanyName,
@@ -110,17 +99,13 @@ class OtcSimulation extends PerformanceTestRunner {
     getUnquotedSharesCheckYourAnswers
   )
 
-  setup("TransferDetailsPropertyJourney", "Property type").withRequests(
-    getAuthWizard,
-    postLoginAsPspUser(psaid = "A2100005"),
-    getHome,
-    getDashBoardPage,
-    getWhatWillBeNeededPage,
-    postWhatWillBeNeededPage,
-    getTaskListPage,
+  setup("TransferPropertySelection", "Select property asset type").withRequests(
     getTypeOfAsset,
     postTypeOfAsset("[3]", "propertyAsset"),
-    getPropertyStart,
+    getPropertyStart
+  )
+
+  setup("TransferPropertyDetails", "Enter property details").withRequests(
     getPropertyAddress,
     postPropertyAddress,
     getPropertyValue,
@@ -130,18 +115,17 @@ class OtcSimulation extends PerformanceTestRunner {
     getPropertyCheckYourAnswers
   )
 
-  setup("TransferDetailsCashAndOtherAssetsJourney", "Cash and other assets type").withRequests(
-    getAuthWizard,
-    postLoginAsPspUser(psaid = "A2100005"),
-    getHome,
-    getDashBoardPage,
-    getWhatWillBeNeededPage,
-    postWhatWillBeNeededPage,
-    getTaskListPage,
+  setup("TransferCashAndOtherAssetsSelection", "Select cash and other assets").withRequests(
     getTypeOfAsset,
-    postTypeOfMultipleAssets("[0]", "cashAssets", "[4]", "otherAsset"),
+    postTypeOfMultipleAssets("[0]", "cashAssets", "[4]", "otherAsset")
+  )
+
+  setup("TransferCashDetails", "Enter cash transfer details").withRequests(
     getCashInTransfer,
-    postCashInTransfer,
+    postCashInTransfer
+  )
+
+  setup("TransferOtherAssetsDetails", "Enter other asset details").withRequests(
     getOtherAssetsStart,
     getOtherAssetsDescription,
     postOtherAssetsDescription,
@@ -153,59 +137,40 @@ class OtcSimulation extends PerformanceTestRunner {
     getCheckYourAnswers
   )
 
-  setup("QROPSJourney", "QROPS Journey").withRequests(
-    getAuthWizard,
-    postLoginAsPspUser(psaid = "A2100005"),
-    getHome,
-    getDashBoardPage,
-    getWhatWillBeNeededPage,
-    postWhatWillBeNeededPage,
-    getTaskListPage,
+  setup("QROPSBasicDetails", "Enter QROPS basic details").withRequests(
     getQROPSName,
     postQROPSName("LIC"),
     getQROPSRef,
-    postQROPSRef("QROPS123456"),
+    postQROPSRef("QROPS123456")
+  )
+
+  setup("QROPSAddress", "Enter QROPS address").withRequests(
     getQROPSAddress,
-    postQROPSAddress("Some Building", "Some Street", "United Kingdom"),
+    postQROPSAddress("Some Building", "Some Street", "United Kingdom")
+  )
+
+  setup("QROPSCountry", "Enter QROPS country").withRequests(
     getQROPSCountry,
     postQROPSCountry("United Kingdom")
   )
 
-  setup("SchemeManagerAsIndividualJourney", "Scheme manager as Individual").withRequests(
-    getAuthWizard,
-    postLoginAsPspUser(psaid = "A2100005"),
-    getHome,
-    getDashBoardPage,
-    getWhatWillBeNeededPage,
-    postWhatWillBeNeededPage,
-    getTaskListPage,
+  setup("SchemeManagerIndividualDetails", "Enter individual scheme manager details").withRequests(
     getTypeOfSchemeManager,
     postTypeOfSchemeManager("individual"),
     getNameOfSchemeManager,
-    postNameOfSchemeManager("First", "Name"),
-    getSchemeManagerAddress,
-    postSchemeManagerAddress,
-    getSchemeManagerEmail,
-    postSchemeManagerEmail,
-    getSchemeManagerContact,
-    postSchemeManagerContact,
-    getSchemeManagerCheckYourAnswers
+    postNameOfSchemeManager("First", "Name")
   )
 
-  setup("SchemeManagerAsOrganisationJourney", "Scheme manager as Organisation").withRequests(
-    getAuthWizard,
-    postLoginAsPspUser(psaid = "A2100005"),
-    getHome,
-    getDashBoardPage,
-    getWhatWillBeNeededPage,
-    postWhatWillBeNeededPage,
-    getTaskListPage,
+  setup("SchemeManagerOrganisationDetails", "Enter organisation scheme manager details").withRequests(
     getTypeOfSchemeManager,
     postTypeOfSchemeManager("organisation"),
     getNameOfOrganisation,
     postNameOfOrganisation,
     getNameOfOrganisationIndividual,
-    postNameOfOrganisationIndividual,
+    postNameOfOrganisationIndividual
+  )
+
+  setup("SchemeManagerContactDetails", "Enter scheme manager contact details").withRequests(
     getSchemeManagerAddress,
     postSchemeManagerAddress,
     getSchemeManagerEmail,
